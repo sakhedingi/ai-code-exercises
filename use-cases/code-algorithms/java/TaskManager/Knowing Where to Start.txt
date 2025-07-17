@@ -1,0 +1,830 @@
+Exercise: Knowing Where to Start
+
+Exercise Part 1: Understanding Project Structure
+
+Prompt 1: Understanding Project Structure and Technology Stack
+
+I'm a junior developer who just joined this project. I've read the README but still need help understanding the project structure and technology stack.
+
+Here's my current understanding of the project:
+- It seems to be a java application/programme
+- It appears to use gradle build tool
+- The folder structure seems to follow project-name/src/main/java/etc...
+
+Project structure:
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        2025/07/17     10:16                .gradle
+d-----        2025/07/17     10:10                gradle
+d-----        2025/07/17     10:10                src
+-a----        2025/07/17     10:10            617 .gitignore
+-a----        2025/07/17     10:10           1047 build.gradle.kts
+-a----        2025/07/17     10:10           8304 gradlew
+-a----        2025/07/17     10:10           2763 gradlew.bat
+-a----        2025/07/17     10:10            960 README.md
+-a----        2025/07/17     10:10             36 settings.gradle.kts
+
+This is src folder:
+    Directory: C:\Users\dings002\IdeaProjects\ai-code-exercises\use-cases\code-algorithms\java\TaskManager\src\main\jav
+    a\za\co\wethinkcode\taskmanager
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        2025/07/17     10:10                app
+d-----        2025/07/17     10:10                cli
+d-----        2025/07/17     10:10                model
+d-----        2025/07/17     10:10                storage
+d-----        2025/07/17     10:10                util
+
+Key configuration files:
+/build.gradle.kts
+settings.gradle.kts
+gradlew.bat
+gradle/wrapper/gradle-wrapper.properties
+
+Could you:
+1. Validate my understanding and correct any misconceptions
+2. Identify additional key technologies, frameworks, and libraries used
+3. Explain what each main folder likely contains and its purpose
+4. Point out where the application entry points are located
+5. Suggest 3-5 specific questions I should ask my team to deepen my understanding
+
+After your explanation, could you suggest a small exploration exercise I could do to verify my understanding of the project structure?
+
+## AI Assistant
+Absolutely! Here’s a clear breakdown addressing each of your points based on the structure and files you've shared:
+
+---
+
+**1. Validation and Corrections**
+
+Your understanding is very solid!  
+- This is indeed a Java application (given the structure and `.java` folder under `src/main`).
+- The project uses the Gradle build tool (`build.gradle.kts`, `gradlew`, etc.).
+- The structure follows the conventional layout for Gradle Java projects (`src/main/java`).
+
+If there’s any misconception, it might only be that there could be more technologies involved—dependencies, frameworks, or libraries used within the project’s Gradle configuration.
+
+---
+
+**2. Key Technologies, Frameworks, and Libraries**
+
+To accurately identify all technologies, you’d need to look inside `build.gradle.kts`.  
+However, based on the standard Java project setup, common frameworks you might find include:
+- **JUnit** (for testing)
+- **SLF4J/Logback** (for logging)
+- Any library for command line parsing, if it’s a CLI app
+
+**Next Step:**  
+Open `build.gradle.kts` and look for any `implementation`, `testImplementation`, or similar dependency entries. Each one is a key part of the stack.
+
+---
+
+**3. Main Folder Explanation**
+
+Here’s what each detected folder most likely contains:
+
+- **app:**  
+  The main entry point(s) of the application—usually contains the `main` method and startup logic.
+
+- **cli:**  
+  Code related to the Command Line Interface. Likely handles user input, argument parsing, and command routing.
+
+- **model:**  
+  Data structures, such as classes representing tasks, users, or projects.
+
+- **storage:**  
+  Classes for task persistence—reading and writing to files, databases, or in-memory structures.
+
+- **util:**  
+  Utility/helper classes for shared logic like date formatting, validation, etc.
+
+---
+
+**4. Application Entry Points**
+
+In a Java app, the entry point will almost always be a file containing:
+
+```java
+public static void main(String[] args)
+```
+
+
+The **`app`** folder is the logical first place to look. Look for a class like `TaskManagerApp`, `Main`, or something similar in `src/main/java/za/co/wethinkcode/taskmanager/app`.
+
+---
+
+**5. Good Questions to Ask Your Team**
+
+1. **What is the primary workflow of the application for an end user?**
+2. **Are there any major third-party libraries or frameworks I should be aware of?**
+3. **How is data persisted? Is there a database, or is it file-based?**
+4. **Is there a preferred style or pattern for adding new features (e.g., MVC, service classes)?**
+5. **How are unit or integration tests written and run in this project?**
+
+---
+
+**Small Exploration Exercise**
+
+**Exploration Exercise:**  
+*Find and run the application's entry point.*
+
+Here’s how:
+1. Browse to the `app` package under `src/main/java/za/co/wethinkcode/taskmanager/app`.
+2. Identify the class with a `main` method.
+3. Open and read through it—note how it initializes the rest of the app (what dependencies does it create?).
+4. If you have a sample task or task list from the README, try running this class from inside your IDE.
+5. Summarize in your own words what happens from startup to (first) user input.
+
+**Bonus:**  
+Try tracing how a user command is processed from the CLI, through the app layer, down to the data model/storage.
+
+---
+
+If you need help reading `build.gradle.kts` or want a sample exploration summary, just let me know!
+
+## Me
+The main method is under /cli/TaskManagerCli.java class
+
+## AI Assistant
+Thank you for letting me know! That’s a very helpful detail. Here’s how that fits into your project understanding and some further information:
+
+---
+
+### Updated Explanation with Entry Point
+
+**Project entry point:**  
+`src/main/java/za/co/wethinkcode/taskmanager/cli/TaskManagerCli.java`
+
+This means the application is designed to be launched from the command line, using the CLI (Command-Line Interface) logic as the starting point. The `TaskManagerCli` class orchestrates the core logic that interacts with the user via command-line input/output.
+
+#### How the Structure Fits Together
+
+- **`cli` Folder:**  
+  The **main entry point (`TaskManagerCli`)** lives here. This folder will likely also have code related to parsing user commands, displaying messages, and invoking other parts of the application (like models and storage).
+
+- **`app` Folder:**  
+  May contain higher-level application logic, possibly orchestrating use cases or application services beyond simple input/output.
+
+- **`model` Folder:**  
+  Pure data representations (e.g., Task, User, Project, etc.), with minimal or no business logic.
+
+- **`storage` Folder:**  
+  Saving/retrieving tasks, possibly from a file or database.
+
+- **`util` Folder:**  
+  Helper utilities used across the other packages.
+
+---
+
+### What to Do Next
+
+**To further your understanding:**
+
+- Open `TaskManagerCli.java` and read the `main` method.  
+  - See how it sets up the system: does it call anything in `app` or `model`?  
+  - Look for a loop receiving commands or input from `System.in`.
+- Notice how errors or invalid input are handled.
+
+---
+
+### Additional Exploration Exercise
+
+**Exercise:**  
+1. Trace the path from `main()` in `TaskManagerCli` to the first action the app performs (e.g., displaying a menu, loading data, etc.).
+2. Write a brief summary (just to yourself) of what happens step by step, from program start to first user prompt.
+3. Track which classes are invoked from `cli` to `app`, `model`, or `storage`.
+
+---
+
+**Optional Follow-up Question to Team:**  
+*Can you describe the boundaries between the `cli`, `app`, and `model` packages? If I want to add a new command, where should the bulk of the logic go?*
+
+---
+
+If you’d like, I can help you write a step-by-step for exploring the `TaskManagerCli` class, or answer any specific questions about what you find!
+
+## Me
+build.gradle.kts file looks like this:
+
+plugins {
+    id("java")
+    id("application")
+}
+
+group = "za.co.wethinkcode"
+version = "1.0-SNAPSHOT"
+
+application {
+    mainClass.set("za.co.wethinkcode.taskmanager.cli.TaskManagerCli")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("commons-cli:commons-cli:1.9.0")
+    implementation("com.google.code.gson:gson:2.11.0")
+
+    // JUnit Jupiter dependencies
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // Mockito for mocking in tests
+    testImplementation("org.mockito:mockito-core:5.8.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.8.0")
+
+    // AssertJ for fluent assertions
+    testImplementation("org.assertj:assertj-core:3.24.2")}
+
+tasks.test {
+    useJUnitPlatform()
+
+    // Enable test logging
+    testLogging {
+        events("passed", "skipped", "failed")
+        showStandardStreams = true
+    }
+}
+
+## AI Assistant
+Great, now that you’ve provided the `build.gradle.kts`, I can clarify your project’s technology stack and testing setup. Here’s an updated and detailed explanation based on this build file:
+
+---
+
+## 1. **Validation and Corrections**
+
+Your understanding is correct and now more complete:
+- **Java project** using **Gradle** as the build tool.
+- The **entry point** is `za.co.wethinkcode.taskmanager.cli.TaskManagerCli` in the `cli` package.
+- The folder structure and config files follow modern multi-module Java conventions.
+
+---
+
+## 2. **Technologies, Frameworks, and Libraries Used**
+
+Your project uses the following main libraries:
+
+- **commons-cli** (`commons-cli:commons-cli:1.9.0`):  
+  For parsing command-line options and arguments in the CLI application.
+- **Gson** (`com.google.code.gson:gson:2.11.0`):  
+  For JSON serialization/deserialization (could be used for saving/loading tasks or config).
+- **JUnit Jupiter** (`org.junit.jupiter`). For writing and running tests.
+- **Mockito** (`org.mockito`). For mocking objects in tests.
+- **AssertJ** (`org.assertj:assertj-core`). For fluent and readable assertions in tests.
+
+**Summary:**
+- Your app is a CLI-driven Java program,
+- Handles JSON for storage/config,
+- Has modern, robust unit testing and mocking.
+
+---
+
+## 3. **Folder Purpose (Refined)**
+
+- `cli/`: Main entry point and all things command-line interface, including command parsing (probably using **commons-cli**).
+- `app/`: Application services—likely orchestrates logic, providing a separation between CLI/input and data handling.
+- `model/`: Core domain objects (e.g. `Task`, maybe `User` or `Project`). Likely plain Java classes/POJOs.
+- `storage/`: Read/write logic, perhaps with **Gson** for JSON persistence.
+- `util/`: General helpers/utilities for code reuse.
+
+---
+
+## 4. **Where to Find the Application Entry Point**
+
+Located at:  
+`src/main/java/za/co/wethinkcode/taskmanager/cli/TaskManagerCli.java`
+
+Defined by:
+```kotlin
+application {
+    mainClass.set("za.co.wethinkcode.taskmanager.cli.TaskManagerCli")
+}
+```
+
+
+You run the application via:
+- `./gradlew run` (on Linux/Mac)
+- `gradlew.bat run` (on Windows)
+  - Gradle will invoke the `main` method in `TaskManagerCli`.
+
+---
+
+## 5. **Questions to Deepen Your Understanding**
+
+Here are some targeted questions you can ask your team:
+
+1. **How does the app handle persisting tasks and loading them on startup? (e.g., file location, data structure)**
+2. **What’s the best way to add a new command for the CLI? Are there conventions or examples to follow?**
+3. **How are errors and invalid commands shown to the user?**
+4. **Are there integrations or automated tests I should know about when developing and running tests?**
+5. **Is there a sample dataset or seed tasks I can use for initial exploration?**
+
+---
+
+## 6. **Small Exploration Exercise**
+
+**Exercise:**  
+1. Find the code in `TaskManagerCli` that handles parsing command line arguments (look for references to `Option`, `CommandLine`, or similar classes from **commons-cli**).
+2. Identify where Gson is used—look for imports or usage in the `storage` folder and see how tasks or data are read from/written to JSON files.
+3. Open the `test` folder (likely under `src/test/java`) and review a simple test for a model or CLI command. Run `./gradlew test` and observe the output.
+4. Look at the structure of at least one class in each of `app`, `model`, and `storage` to see how logic and responsibilities are split.
+
+**Bonus:**  
+Draw a simplified architecture/flow diagram showing how input moves from the CLI, through the app/services, to data storage (and back).
+
+---
+
+If you’d like hands-on guidance with any of these areas or want code walkthroughs, just ask!
+
+According to the explanation above and my understanding at this point. Below is a simplified architecture/flow diagram showing how input moves from the CLI, through the app/services, to data storage (and back):
+
+┌─────────────┐    user input    ┌──────────────┐      process/validate    ┌─────────────┐      read/write      ┌─────────────┐
+│             │  ──────────────▶ │              │   ─────────────────────▶ │             │   ─────────────────▶ │             │
+│    User     │                  │     CLI      │                          │   App/      │                      │   Storage   │
+│ (Terminal)  │◀───────────────  │ (TaskManager │ ◀──────────────────────  │ Services    │ ◀──────────────────  │ (e.g. File  │
+│             │   display        │    Cli)      │     output/messages      │ (Business   │    send/load models  │   JSON)     │
+└─────────────┘                  └──────────────┘                          │   Logic)    │                      └─────────────┘
+                                                                           └─────────────┘
+                                                                                   ▲
+                                                                                   │
+                                                                           ┌───────┘
+                                                                           │
+                                                                     ┌──────────────┐
+                                                                     │   Model      │
+                                                                     └──────────────┘
+
+Exercise Part 2: Finding Feature Implementation
+
+Prompt 2: Finding Feature Implementation Locations
+
+I need to work on the Task Export to CSV in this codebase, but I'm not sure where the code for this feature lives.
+
+My approach so far:
+- I've searched for keywords like .json, .csv, csv, Content-Type: text/csv, tasks.csv, case "export", .export, /export, exportTasks, Export Tasks
+
+
+- I looked in /storage which seemed relevant
+- I think the feature might relate to /storage
+
+Here are my findings so far:
+- tasks.json contains all tasks and it is located in the root folder
+- csv is found in Crm.java here is the path to the class /use-cases/refactor-functions/java/src/main/java/com/example/crm/
+- I think task data export functionality might belong to storage directory
+- I think we can modify the existing TaskStorage.java to export tasks.json to CSV
+- I have found @Internal SingleFileReport getCsv(); but under C:\Users\dings002\.gradle\caches\8.10\transforms\c2aba51cddf9ff8a7af856acaf7d6420\transformed\unzipped-distribution\gradle-8.10\platforms\jvm\jacoco\src\main\java\org\gradle\testing\jacoco\tasks\JacocoReportsContainer.java
+
+
+Project structure:
+use-cases/code-algorithms/java/TaskManager/src/main/java/za/co/wethinkcode/taskmanager/storage
+
+Based on my search, these files might be relevant, but I'm not sure:
+storage/TaskStorage.java
+
+Can you help me:
+1. Evaluate my search approach and suggest improvements
+2. Identify which files and directories most likely contain the implementation for this feature
+3. Suggest specific search terms or patterns that would be more effective
+4. Explain what parts of the feature might be located in different areas of the codebase
+5. Recommend a step-by-step investigation process to understand the complete feature flow
+
+Also, what questions could I ask myself as I'm exploring the code to ensure I'm on the right track? What specific patterns should I look for to confirm I've found all the relevant parts?
+
+After your guidance, could you give me a small challenge to test my understanding of how to navigate this feature's code?
+
+
+## Me
+I need to work on the Task Export to CSV in this codebase, but I'm not sure where the code for this feature lives.
+
+My approach so far:
+- I've searched for keywords like .json, .csv, csv, Content-Type: text/csv, tasks.csv, case "export", .export, /export, exportTasks, Export Tasks
+
+
+- I looked in /storage which seemed relevant
+- I think the feature might relate to /storage
+
+Here are my findings so far:
+- tasks.json contains all tasks and it is located in the root folder
+- csv is found in Crm.java here is the path to the class /use-cases/refactor-functions/java/src/main/java/com/example/crm/
+- I think task data export functionality might belong to storage directory
+- I think we can modify the existing TaskStorage.java to export tasks.json to CSV
+- I have found @Internal SingleFileReport getCsv(); but under C:\Users\dings002\.gradle\caches\8.10\transforms\c2aba51cddf9ff8a7af856acaf7d6420\transformed\unzipped-distribution\gradle-8.10\platforms\jvm\jacoco\src\main\java\org\gradle\testing\jacoco\tasks\JacocoReportsContainer.java
+
+
+Project structure:
+use-cases/code-algorithms/java/TaskManager/src/main/java/za/co/wethinkcode/taskmanager/storage
+
+Based on my search, these files might be relevant, but I'm not sure:
+storage/TaskStorage.java
+
+Can you help me:
+1. Evaluate my search approach and suggest improvements
+2. Identify which files and directories most likely contain the implementation for this feature
+3. Suggest specific search terms or patterns that would be more effective
+4. Explain what parts of the feature might be located in different areas of the codebase
+5. Recommend a step-by-step investigation process to understand the complete feature flow
+
+Also, what questions could I ask myself as I'm exploring the code to ensure I'm on the right track? What specific patterns should I look for to confirm I've found all the relevant parts?
+
+After your guidance, could you give me a small challenge to test my understanding of how to navigate this feature's code?
+
+## AI Assistant
+Absolutely, you’ve already laid solid groundwork in your search! Let’s break down your approach and sharpen it so you can quickly, confidently locate and understand the “Export to CSV” feature.
+
+---
+
+## 1. Evaluating and Improving Your Search Approach
+
+### Strengths in Your Search
+- Used a variety of file extensions (`.csv`), content types, and action keywords (`export`).
+- Explored likely directories (`/storage`).
+- Noted relationships between files (`tasks.json`, `TaskStorage.java`).
+
+### Suggested Improvements
+
+- **Broad-to-Narrow Approach:** Start broad (keywords) then focus on traces (method names, usage).
+- **Related Terms:** Export might not always use "csv" in code—try synonyms like `write`, `serialize`, `save`, `FileWriter`, `PrintWriter`, `toString`, `toCSV`, etc.
+- **Look for API/Endpoint Routes:** If it’s a web feature, search for controller or route definitions: e.g., `/export`, `@GetMapping`, `@RequestMapping`, `servlet`, etc.
+- **Check UI triggers:** If there’s a UI, search for button labels "Export", icons, or JavaScript event handlers.
+- **Review Interfaces:** Look for generic methods like `exportData()`, or inheritance `implements Exportable`.
+
+---
+
+## 2. Likely Files and Directories
+
+Based on your structure and findings:
+
+- **Highly Relevant:**
+  - `use-cases/code-algorithms/java/TaskManager/src/main/java/za/co/wethinkcode/taskmanager/storage/TaskStorage.java`
+  - Any class named `TaskManager`, `TaskController`, or `TaskService`
+  - Directories:
+    - `/storage` (where persisting/loading tasks likely occurs)
+    - `/controller` or `/service` (if present, often where export features are triggered or routed)
+
+- **Possibly Relevant:**
+  - Views or UI files (for the actual trigger)
+  - Utility/helper classes (with methods like `toCsvLine`, `CsvExporter`)
+
+---
+
+## 3. Effective Search Terms
+
+Try these searches:
+- `export` (method, variable, comment)
+- `csv` OR `CSV`
+- `write` OR `FileWriter` OR `BufferedWriter`
+- `tasks` AND `file`
+- `@GetMapping` OR `@RequestMapping` OR `export`
+- `"Export Tasks"` (button label, UI)
+- `task.toCsv`
+- `join(",")` (common when merging for CSV)
+
+General pattern:  
+`grep -ni "export\|csv" *` inside relevant directories  
+or use IDE-wide search for similar fuzzy terms.
+
+---
+
+## 4. Feature Location in Codebase
+
+- **Storage Layer (“TaskStorage.java”):** Knows how to load/save task data, likely handles IO for export.
+- **Service Layer:** Might define business logic (e.g., what subset of tasks to export).
+- **Controller Layer:** Triggers the export, responds to UI/API calls.
+- **UI Layer:** Presents the export button or link.
+- **Utility Classes:** May handle formatting data as CSV.
+
+---
+
+## 5. Step-by-Step Investigation Process
+
+1. **Locate the Entry Point:**
+   - Where does the user trigger the export? (UI or API Controller)
+
+2. **Trace the Call:**
+   - Follow the logic from the controller/method that responds to the export action.
+   - Identify which service/storage class/method is called to fetch data.
+
+3. **Identify File Operations:**
+   - Look for methods dealing with files, filename patterns, or streams related to CSV.
+
+4. **Find Serialization Logic:**
+   - The code that takes a task (likely a `Task` object) and turns it into a CSV line.
+   - Look for methods like `toCsv()`, `toString()`, or ad-hoc string concatenation.
+
+5. **Map the Flow:**
+   - From trigger (UI/controller) → service → storage/IO → file output
+
+6. **Run & Set Debug Breakpoints:**
+   - If possible, run and trigger an export to watch what code executes.
+
+---
+
+## 6. Questions to Guide Your Exploration
+
+- Where is the export action initiated (UI, CLI, API)?
+- What methods are called as a result?
+- How are tasks read into memory? Where is this code?
+- How is the CSV file created/written?
+- Is the file returned to the user, saved on disk, or both?
+- Are there edge cases handled (e.g., no tasks, large numbers, special characters)?
+
+### Patterns to Look For
+
+- Looping over collections of tasks (`for (Task t : tasks)`)
+- String concatenation with commas: `sb.append(...)`
+- File or stream operations: `FileWriter`, `BufferedWriter`, `PrintWriter`
+- Methods named `export`, `saveAsCsv`, `writeCsv`, etc.
+- Methods returning/using a `.csv` filename or MIME type
+
+---
+
+## 7. Challenge for You
+
+**Find and explain the flow for exporting tasks to CSV:**
+1. Identify the method *responsible for writing the CSV file*.
+2. Briefly describe how it works—does it serialize from object to string, handle escaping, write line by line, etc.?
+3. List the chain of calls/events leading from user action to CSV generation.
+
+---
+
+### Need More Guidance?
+
+Break your investigation into these checkpoints, and if you hit a wall, try stepping up/down the call stack or searching for data flow of a “task” from UI to file output. Keep an eye out for overloaded methods or utility classes!
+
+Let me know what you find or if you need help at any particular step!
+
+
+Exercise Part 3: Understanding Domain Model
+
+
+
+Business Logic Related to Tasks
+•	Creation: Tasks can be created with a minimal title or with more fields (overloaded constructors).
+•	Modification: The update method supports partial updates; only non-null/valid fields get changed.
+•	Completion: markAsDone changes status and timestamps appropriately.
+•	Deadlines: isOverdue provides "late" detection.
+•	Tag Management: Add/remove operations for tags.
+
+Key Application Terminology / Concepts
+•	Task: A to-do; the central object.
+•	Priority: How important/urgent a task isn.
+•	Status: Progress phase – not just open/closed, but with in-between states (e.g., REVIEW).
+•	Tags: Custom labels for organizing tasks, freely assigned.
+•	Overdue: Built-in logic to evaluate lateness.
+•	Business Methods: The Task itself contains logic, not only dumb data
+
+Initial Understanding: Entity Explanations
+•	Task: Encapsulates all data and main behaviors related to a work item or to-do in the system.
+•	TaskStatus: A clear workflow state. Useful for features like dashboards, filtering, and reporting.
+•	TaskPriority: Ranking that helps users/classifications sort and act on more urgent/critical work first.
+
+Realtionship between entities:
++-------+      +------------------+      +---------------+
+| Task  +----->| TaskPriority (1) |      | TaskStatus (1)|
++-------+      +------------------+      +---------------+
+   |
+   +--> (0..*) tags : String
+   
+•	A Task has one priority and one status, both as enums.
+•	Tasks can have multiple tags.
+•	Each Task has independent time and identification fields.
+
+Questions / Potential Confusions about Business Logic
+1.	Status Transition Rules: Are there constraints (e.g. you cannot skip directly from TODO to DONE)? The model lets any status be set, so business constraints may not be enforced here.
+2.	Task Uniqueness: Is uniqueness only on id, or could there be other natural constraints (e.g., can't have two tasks with the exact details)?
+3.	Tags: Are there global, system-defined tags, or can users create any tags they like? Are tags only for searching/filtering?
+4.	Priority Meaning: What business logic is tied to the different priority levels (besides sorting/filtering)?
+5.	Overdue Business Process: What should happen if a task is overdue? Is there escalation, alerting, or just a state check?
+6.	CompletedAt and Status: Is completedAt always set when status is DONE, and unset otherwise? (Seems like it from the logic, but edge cases?)
+
+
+Prompt 3: Understanding Domain Models and Business Concepts
+
+I'd like you to act as a senior developer who deeply understands our codebase's domain model. I'm a junior developer trying to make sense of the business logic and domain concepts in this application.
+
+Here's what I've found in the codebase:
+Task, TaskStatus, TaskPriority, tasks.json, TaskStorage, TaskManager, TaskManagerCli, TaskMergeService, TaskPriorityManager, and TaskTextParser and some test class.
+
+Based on this code, my current understanding is:
+- The system seems to be modeling an individual to-do item or action in the task manager system
+- I think Task, TaskPriority and TaskStatus are related because a Task has one priority and one status
+- The save() method appears to represent the addind, updating, and deleting of tasks.
+- I'm confused about the following Business Logic:
+1.	Status Transition Rules: Are there constraints (e.g. you cannot skip directly from TODO to DONE)? The model lets any status be set, so business constraints may not be enforced here.
+2.	Task Uniqueness: Is uniqueness only on id, or could there be other natural constraints (e.g., can't have two tasks with the exact details)?
+3.	Tags: Are there global, system-defined tags, or can users create any tags they like? Are tags only for searching/filtering?
+4.	Priority Meaning: What business logic is tied to the different priority levels (besides sorting/filtering)?
+5.	Overdue Business Process: What should happen if a task is overdue? Is there escalation, alerting, or just a state check?
+6.	CompletedAt and Status: Is completedAt always set when status is DONE, and unset otherwise? (Seems like it from the logic, but edge cases?)
+
+Could you, as a senior developer:
+1. Validate my current understanding, correcting any misconceptions
+2. Help me recognize the core domain concepts represented in this code
+3. Explain the relationships between these entities in business terms, not just technical relationships
+4. Clarify any domain-specific terminology or patterns I might be missing
+5. Help me connect these models to actual user-facing features or business processes
+
+Then, please ask me 3-5 questions that would test my understanding of this domain model. These should be questions that make me think about the business logic, not just the code syntax.
+
+Finally, suggest a simple diagram I could sketch to visualize these relationships that would help solidify my understanding.
+
+
+Absolutely, I’m glad to help! Let’s address each of your points step by step.
+
+---
+
+## 1. **Validation of Your Current Understanding**
+
+You are largely correct in your summary:
+- **Task**: Represents a single to-do item, encapsulating all relevant data and behavior.
+- **TaskPriority** and **TaskStatus**: Enums used by Task to categorize importance/urgency and workflow status.
+- **save() vs Storage**: Slight correction: It’s actually TaskStorage (and not a save() method on Task) that handles adding, updating, and deleting tasks; Task itself is an entity model and doesn’t manage persistence directly.
+- **Component Roles**:
+    - **TaskManager**: The main business service/facade. Handles higher-level operations and mediates between TaskStorage and the CLI/API.
+    - **TaskManagerCli**: The command-line interface for interacting with the system.
+    - **tasks.json**: The persistent storage where tasks live between runs (via TaskStorage).
+    - **TaskTextParser**: For turning natural text into a Task object—think of "smart input" that parses human commands.
+    - **TaskMergeService**: Advanced utility for merging task lists from two sources, e.g. resolving conflicts between local and remote tasks.
+
+---
+
+## 2. **Core Domain Concepts in this Code**
+
+- **Task**: The main business entity. A “work item” with a status, priority, and metadata (title, description, tags, dates).
+- **TaskStatus**: Business workflow state—where a task currently stands (Yet to start, Ongoing, Awaiting Review, Completed).
+- **TaskPriority**: Business urgency or importance—how soon should this get attention?
+- **Tags**: Flexible labels for user-defined organization.
+- **TaskList**: (Not a class, but conceptually) a collection of tasks—how the user views their workload.
+
+---
+
+## 3. **Business Relationships Between Entities**
+
+- **A Task “is assigned” one Priority and one Status**: At any time, a Task has exactly one status and one priority.
+- **Tags are “applied to” Tasks**: Any Task can have zero or more tags. These aren’t (out of the box) global/shared, just flexible user categorization.
+- **Task, Priority and Status affect how tasks are displayed and filtered in the user interface**: For example, filtering by “High Priority & In Progress” for a “daily focus” list.
+- **Due Dates and Status intersect**: If a task has a due date and is not DONE, it may be marked overdue (affects how it’s highlighted for users).
+- **Persistence boundary**: The Tasks are saved to and loaded from JSON via TaskStorage.
+
+---
+
+## 4. **Domain-Specific Terminology / Patterns**
+
+- **Business pattern: “Stateful Entity”**: 
+  - Tasks have state (status), and can change over time (in business, this models real progress on work).
+- **Flexible Tagging (”Folksonomy”)**:
+  - Tags are not centrally defined—they let users organize their own way, similar to how “labels” work in Gmail.
+- **Workflow & Progression**:
+  - The Status enum is designed to match real-life workflows: TODO → IN_PROGRESS → REVIEW → DONE.
+- **Special Fields for Deadlines**:
+  - The presence of dueDate and completedAt enables business logic for overdue or reporting “how fast work is done”.
+
+Some things you might be missing:
+- **Task uniqueness**: Only technically enforced by the unique ID (UUID). There’s no restriction on having two tasks with the same title/description.
+- **No enforced workflow constraints**: The current code lets any status be set at any time—no rules blocking e.g. jumping from TODO straight to DONE.
+- **Tags**: Purely user-created, not system/global—meant for ad hoc organization.
+
+---
+
+## 5. **Connecting Domain Model to User Features / Business Process**
+
+- **Creating a Task**: User adds a work item (with title, priority, due date, etc.); it’s stored in tasks.json, visible in their list.
+- **Progress Tracking**: As users work, they move the task through statuses; UI (CLI, or app) may filter to “in progress” or “pending review”.
+- **Prioritization**: Users (or team leads) sort/filter by Priority to focus on urgent work.
+- **Organization with Tags**: Users assign custom tags (e.g. “@home”, “@work”, “#critical”) and later filter/search by these.
+- **Overdue Tasks Highlighting**: If a task is past due and not done, UI could flag it (maybe in red) to prompt user action.
+- **Task Merge/Sync**: Useful when users work offline then want to sync with a central list—conflict resolution is handled in TaskMergeService.
+
+---
+
+### **Clarifying Your Specific Business Logic Questions**
+
+1. **Status Transition Rules**:  
+   - **Current situation**: Any status can be set programmatically—"jumping ahead" is allowed. 
+   - **Business implication**: If required, these rules would need to be enforced at a higher level (in TaskManager or via UI logic).
+
+2. **Task Uniqueness**:  
+   - **Unique by ID only**: Two tasks with the same title/description/etc. are acceptable; IDs must be different.
+
+3. **Tags**:  
+   - **User-generated and ad hoc**: No central list. Tags are for user’s convenience; system treats them only as text labels.
+
+4. **Priority Meaning**:
+   - **Business value**: Priority affects task ordering, filtering, urgency—but there’s no special programmatic behavior (no blocking lower priorities, etc.) unless you add it.
+
+5. **Overdue Business Process**:  
+   - **Current code**: isOverdue() is a check—overdue tasks can be highlighted or filtered, but no escalation/action is built in.
+
+6. **completedAt and Status**:  
+   - **Intended flow**: Only set when marking as DONE. If undone, completedAt should be cleared. Code tries to ensure this, but edge cases appear if you skip steps manually.
+
+---
+
+## **Questions to Test Your Domain Model Understanding**
+
+1. **If a user changes a task’s status directly from “TODO” to “DONE”, what implications does this have in our current business logic?**
+2. **How would the system behave if two tasks have exactly the same title, description, priority, status, and due date?**
+3. **Why might a user want to use tags? Can you think of a feature where having tags on tasks is essential?**
+4. **What would happen if you remove a task’s dueDate—how does this impact business logic related to overdue tasks?**
+5. **Describe a scenario where TaskMergeService would come into play in everyday usage. What problem does it solve for users?**
+
+---
+
+## **Suggested Diagram**
+
+A simple **entity-relationship diagram** (ERD) would help. Here’s a text description you can sketch:
+
+                        +-------------------------------+
+                        |      TaskStorage (JSON)       |
+                        |  - Saves/loads Tasks to/from  |
+                        |    a JSON file (tasks.json)   |
+                        +---------------+---------------+
+                                        |
+                                   persists
+                                        v
+  +---------------------------------------------------------------------+
+  |                              Task                                   |
+  |---------------------------------------------------------------------|
+  | id : String (UUID)                                                  |
+  | title : String                                                      |
+  | description : String                                                |
+  | priority : TaskPriority    <----+                                   |
+  | status : TaskStatus        <----+                                   |
+  | createdAt : Date/Time                                               |
+  | updatedAt : Date/Time                                               |
+  | dueDate : Date/Time  +-------------------+                          |
+  | completedAt : Date/Time        |         |                          |
+  | tags : List<String>            |         |                          |
+  |------------------------------- |         | ------------------------|
+  | * markAsDone()     (sets status to DONE, sets completedAt)          |
+  | * isOverdue()      (returns true if dueDate in the past & not DONE) |
+  | * update(Task)                                                      |
+  | * addTag(String) / removeTag(String)                                |
+  +-----------------------------------^---------------------------------+
+                                      |
+                                      |
+        +-----------------------------+-----------------------------+
+        |                             |                             |
++--------------------+    +-----------------------+    +-------------------------+
+|   TaskPriority     |    |     TaskStatus        |    |      tags (Strings)     |
++--------------------+    +-----------------------+    +-------------------------+
+| Enum:              |    | Enum:                 |    | e.g. "@bugs", "#issues" |
+| LOW, MEDIUM, HIGH, |    | TODO, IN_PROGRESS,    |    +-------------------------+
+| URGENT             |    | REVIEW, DONE          |
++--------------------+    +-----------------------+
+
+---
+
+Exercise Part 4: Practical Application
+
+1. Files to Modify
+To implement the rule
+"Tasks that are overdue for more than 7 days should be automatically marked as abandoned unless they are marked as high priority",
+you would likely need to update (at minimum):
+•	TaskStatus: (Possibly) to add an "ABANDONED" status, if not already there.
+•	TaskManager.java: This is where business logic is orchestrated. You probably want to implement a method/process here to check all tasks for this condition and update their status.
+•	Task.java: If needed, to add helper methods (like isOverdueByMoreThanDays(int)) for code clarity.
+•	(Optional) Tests: To cover this rule.
+•	(Optional) CLI/UI code (TaskManagerCli.java): If you want users to trigger or see this process.
+You do not need to modify TaskStorage unless you want to optimize persistence. Persistence (saving changed status) is already handled via TaskManager.
+________________________________________
+2. Outline of Changes
+a. Update Status Enum
+•	Check if TaskStatus includes something like ABANDONED; if not, add it.
+b. Core Logic Addition
+Add to TaskManager.java:
+•	Create a method such as abandonOverdueTasks():
+o	Load all tasks (storage.getAllTasks()).
+o	For each task:
+	If task status is not DONE or ABANDONED,
+	AND is overdue by more than 7 days (task.getDueDate() != null && now.isAfter(dueDate.plusDays(7))),
+	AND priority is not HIGH,
+	Then set its status to ABANDONED and save/update it.
+
+•	Add isOverdueByMoreThanDays(int n) or daysOverdue() helper in Task.java for code clarity.
+c. Trigger Process
+•	Decide when/how this rule runs:
+o	On app start?
+o	On a schedule (cron)?
+o	Manually by user via CLI/menu?
+•	If via UI/CLI: add a command in TaskManagerCli and connect to the method.
+________________________________________
+3. Questions to Ask Before Implementing
+1.	Status Handling: Is “ABANDONED” a new status, or should we reuse an existing one (e.g. CANCELED/INVALID if present)?
+2.	Reversible?: Can users “revive” abandoned tasks? Or is this a permanent state?
+3.	Notification: Should users be alerted when tasks are marked abandoned?
+(UI notification, email, log, etc.)
+4.	Priority: Is “HIGH” the only exempt priority, or should “URGENT” (if present) also exempt?
+5.	Performance/Load: If many tasks exist, do we need a background job, or is running on startup acceptable for now?
+6.	Multi-user System: If the system supports multiple users, do we only process the current user’s tasks, or all in storage?
+________________________________________
+Summary Table
+	Step				    File(s)	What/Why
+1	TaskStatus.java	        Ensure "ABANDONED" status exists
+2	TaskManager.java	    Main business logic for auto-abandoning
+3	Task.java	            Helper for “overdue by N days”
+4	TaskManagerCli.java*	(If needed) User action to run the process
+5	Test code	            Tests for this new behavior
+
+
