@@ -176,4 +176,22 @@ public class TaskManager {
 
         return stats;
     }
+
+    public void abandonOverdueTasks() {
+        List<Task> allTasks = storage.getAllTasks();
+        for (Task task : allTasks) {
+            boolean isOverdue = task.isOverdueByMoreThanDays(7);
+            boolean alreadyResolved =
+                    task.getStatus() == TaskStatus.DONE ||
+                            task.getStatus() == TaskStatus.ABANDONED;
+            boolean isHighPriority = task.getPriority() == TaskPriority.HIGH;
+
+            if (isOverdue && !alreadyResolved && !isHighPriority) {
+                // Create a Task object with only the status set to ABANDONED for update
+                Task updates = new Task(task.getTitle());
+                updates.setStatus(TaskStatus.ABANDONED);
+                storage.updateTask(task.getId(), updates);
+            }
+        }
+    }
 }

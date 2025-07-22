@@ -1,6 +1,8 @@
 package za.co.wethinkcode.taskmanager.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -169,6 +171,11 @@ public class Task {
         if (!this.tags.contains(tag)) {
             this.tags.add(tag);
         }
+    }
+
+    public boolean isOverdueByMoreThanDays(int days) {
+        if (dueDate == null || status == TaskStatus.DONE || status == TaskStatus.ABANDONED) return false;
+        return LocalDate.now().isAfter(ChronoLocalDate.from(dueDate.plusDays(days)));
     }
 
     public boolean removeTag(String tag) {

@@ -42,6 +42,9 @@ public class TaskManagerCli {
     }
 
     private static void executeCommand(String command, String[] args) {
+        // Automatically abandon overdue tasks on every command.
+        taskManager.abandonOverdueTasks();
+
         switch (command) {
             case "create":
                 handleCreateCommand(args);
